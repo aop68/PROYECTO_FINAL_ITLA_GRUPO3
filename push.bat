@@ -1,0 +1,9 @@
+@echo off
+echo Añadiendo archivos...
+git add .
+echo Realizando commit...
+git commit -m "Actualización completa del proyecto"
+echo Enviando a GitHub...
+git push -u origin main
+echo Proceso completado.
+pause 
