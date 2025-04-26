@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Dashboard de Tiempo Real - Cardnet</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_tiempo_real.css') }}">
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<!-- Mapbox Token para mapas -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
+<script src="{{ url_for('static', filename='js/dashboard_tiempo_real.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-real-time">
+    <!-- Header y filtros -->
+    <div class="dashboard-header">
+        <h1>Dashboard de Transacciones en Tiempo Real</h1>
+        
+        <div class="filtros">
+            <div class="filtro-grupo">
+                <label for="filtro-fecha-inicio">Desde:</label>
+                <input type="date" id="filtro-fecha-inicio" name="fecha-inicio">
+            </div>
+            <div class="filtro-grupo">
+                <label for="filtro-fecha-fin">Hasta:</label>
+                <input type="date" id="filtro-fecha-fin" name="fecha-fin">
+            </div>
+            <div class="filtro-grupo">
+                <label for="filtro-tipo-tarjeta">Tipo Tarjeta:</label>
+                <select id="filtro-tipo-tarjeta">
+                    <option value="todos">Todos</option>
+                </select>
+            </div>
+            <div class="filtro-grupo">
+                <label for="filtro-provincia">Provincia:</label>
+                <select id="filtro-provincia">
+                    <option value="todos">Todas</option>
+                </select>
+            </div>
+            <div class="filtro-grupo">
+                <label for="filtro-tipo-negocio">Tipo Negocio:</label>
+                <select id="filtro-tipo-negocio">
+                    <option value="todos">Todos</option>
+                </select>
+            </div>
+            <button id="btn-aplicar-filtros" class="btn-filtro">Aplicar</button>
+        </div>
+    </div>
+    
+    <!-- Contenedor de errores -->
+    <div id="error-container" class="error-container"></div>
+
+    <!-- KPIs -->
+    <div class="kpi-container"></div>
+
+    <!-- Gráficos principales -->
+    <div class="charts-container">
+        <div class="chart-card" id="chart-transacciones-hora">
+            <h3>Transacciones por Hora</h3>
+            <div class="chart-content"></div>
+        </div>
+        
+        <div class="chart-card" id="chart-estado-terminales">
+            <h3>Estado de Terminales</h3>
+            <div class="chart-content"></div>
+        </div>
+        
+        <div class="chart-card" id="chart-tipos-negocio">
+            <h3>Tipos de Negocio</h3>
+            <div class="chart-content"></div>
+        </div>
+        
+        <div class="chart-card" id="chart-mapa">
+            <h3>Distribución Geográfica</h3>
+            <div class="chart-content"></div>
+        </div>
+    </div>
+    
+    <!-- Transacciones Recientes -->
+    <div class="recent-transactions">
+        <h3>Transacciones Recientes</h3>
+        <div class="table-container"></div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="dashboard-footer">
+        <div class="update-info">
+            <span>Última actualización: <span id="ultima-actualizacion">--:--:--</span></span>
+            <span>Actualización automática cada 30 segundos</span>
+        </div>
+    </div>
+    
+    <!-- Indicador de carga -->
+    <div id="loading-indicator" class="loading-indicator">
+        <div class="spinner"></div>
+        <p>Cargando datos...</p>
+    </div>
+</div>
+{% endblock %} 
