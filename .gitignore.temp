@@ -1,0 +1,14 @@
+# Solo ignorar archivos sensibles
+.env
+*.env
+
+# Archivos de Python que son demasiado grandes o temporales
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.gguf
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db 
